@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Géoportail</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
+		<link rel="stylesheet" href="css/leaflet.css" />
+		<script src="js/leaflet.js"></script>
+		
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+		<link rel="stylesheet" href="css/Control.FullScreen.css" />
+		<script src="js/Control.FullScreen.js"></script>
+
+		<script src="http://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+		<script src="js/leaflet-providers.js"></script>
+
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.0/chartjs-plugin-zoom.min.js" integrity="sha512-TT0wAMqqtjXVzpc48sI0G84rBP+oTkBZPgeRYIOVRGUdwJsyS3WPipsNh///ay2LJ+onCM23tipnz6EvEy2/UA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<style>
+		    #map {
+		        width: 1200px;
+		        height: 800px;
+		    }
+
+		    .info {
+		        padding: 7px 8px;
+		        font: 14px/16px Arial, Helvetica, sans-serif;
+		        background: black;
+		        background: rgba(240,240,240,0.8);
+		        box-shadow: 0 0 15px rgba(0,0,0,0.6);
+		        border-radius: 5px;
+		    }
+		    .info h4 {
+		        margin: 0 0 5px;
+		        color: #252525;
+		    }
+		    .legend i {
+		        width: 16px;
+		        height: 16px;
+		        float: left;
+		        margin-right: 8px;
+		        opacity: 0.7;
+		        }
+		        body{ background-color: #f7f1ee;}
+		        h1{
+		            text-align: center;
+		             text-size-adjust: 20px;
+		             color: #252525;
+		        
+		    }
+
+		    .earth {
+		        position: absolute;
+		        top: 120px;
+		        bottom: 580px;
+		        left: 1000px;
+		        right: 200px;
+		        margin: auto;
+		        width: 110px;
+		        heght: 52px;
+		        background-image: url(https://cdn2.nextinpact.com/images/bd/news/135212.jpeg);
+		        border-radius: 50%;
+		        background-size: cover;
+		        box-shadow: -5px -5px 15px 1px #000 inset,0 0 5px 1px #000;
+		        animation:  spin 30s linear alternate infinite;
+
+		    }
+		    @keyframes spin{
+		        100%{background-position: 100%;}
+		    }
+		          
+		    
+		</style>
+
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class =earth></div>
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/Logo_iav.png" alt="" /></span><span class="title">Institut Agronomique et Vétérinaire Hassan-II</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="carte2D.html">Évolution temporelle</a></li>
+							<li><a href="carte2D2.html">Le territoire Breton</a></li>
+							<li><a href="carte3D.html">Relief et hydrographie en Bretagne</a></li>
+							<li><a href="Metadonnee.html">Métadonnées</a></li>
+							<li><a href="nous.html">À propos de nous</a></li>
+							<li><a href="info_import.html">Informations importantes</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Relief et hydrographie en Bretagne</h1>
+							<h2>Carte 3D représentant le relief, l'hydrographie et les arbres engagés en MAEC / CAB / MAB</h2> 
+
+							<button class="button button1" onclick="window.location.href='carte3dd.html'">Affichage de la carte 3D</button><br>
+							
+							     
+						</div>
+						
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+							<section>
+								<h2>Follow</h2>
+								<ul class="icons">
+									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+							
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

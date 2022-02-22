@@ -1,0 +1,619 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Géoportail</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
+		<link rel="stylesheet" href="css/leaflet.css" />
+		<script src="js/leaflet.js"></script>
+		
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+		<link rel="stylesheet" href="css/Control.FullScreen.css" />
+		<script src="js/Control.FullScreen.js"></script>
+
+		<script src="http://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+		<script src="js/leaflet-providers.js"></script>
+
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.0/chartjs-plugin-zoom.min.js" integrity="sha512-TT0wAMqqtjXVzpc48sI0G84rBP+oTkBZPgeRYIOVRGUdwJsyS3WPipsNh///ay2LJ+onCM23tipnz6EvEy2/UA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
+		<script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
+
+
+
+		<style>
+		    #map {
+		        width: 1200px;
+		        height: 800px;
+		    }
+
+		    .info {
+		        padding: 7px 8px;
+		        font: 14px/16px Arial, Helvetica, sans-serif;
+		        background: black;
+		        background: rgba(240,240,240,0.8);
+		        box-shadow: 0 0 15px rgba(0,0,0,0.6);
+		        border-radius: 5px;
+		    }
+		    .info h4 {
+		        margin: 0 0 5px;
+		        color: #252525;
+		    }
+		    .legend i {
+		        width: 16px;
+		        height: 16px;
+		        float: left;
+		        margin-right: 8px;
+		        opacity: 0.7;
+		        }
+		        body{ background-color: #f7f1ee;}
+		        h1{
+		            text-align: center;
+		             text-size-adjust: 20px;
+		             color: #252525;
+		        
+		    }
+
+		    .earth {
+		        position: absolute;
+		        top: 120px;
+		        bottom: 580px;
+		        left: 1000px;
+		        right: 200px;
+		        margin: auto;
+		        width: 110px;
+		        heght: 52px;
+		        background-image: url(https://cdn2.nextinpact.com/images/bd/news/135212.jpeg);
+		        border-radius: 50%;
+		        background-size: cover;
+		        box-shadow: -5px -5px 15px 1px #000 inset,0 0 5px 1px #000;
+		        animation:  spin 30s linear alternate infinite;
+
+		    }
+		    @keyframes spin{
+		        100%{background-position: 100%;}
+		    }
+
+		    	          
+		    
+		</style>
+
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class =earth></div>
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/Logo_iav.png" alt="" /></span><span class="title">Institut Agronomique et Vétérinaire Hassan-II</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="carte2D.html">Évolution temporelle</a></li>
+							<li><a href="carte2D2.html">Le territoire Breton</a></li>
+							<li><a href="carte3D.html">Relief et hydrographie en Bretagne</a></li>
+							<li><a href="Metadonnee.html">Métadonnées</a></li>
+							<li><a href="nous.html">À propos de nous</a></li>
+							<li><a href="info_import.html">Informations importantes</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Évolution temporelle</h1>
+							<h2>Carte intéractive sur l'Évolution des producteurs biologiques en Bretagne entre 2008 et 2011</h2> 
+							<div id="map"></div>
+							<script src="donnee/bretagne_essai.geojson"></script>
+							<script src="js/SliderControl.js"></script>
+							    <script>                                
+							        var sliderControl = null;
+							        var map = L.map('map').setView([46, 2], 5);
+							
+							        var defaultLayer= L.tileLayer.provider('OpenStreetMap.Mapnik', {
+							                    tap: false, // ref https://github.com/Leaflet/Leaflet/issues/7255
+							                    zoom: 5,
+							                    fullscreenControl: true,
+							                    fullscreenControlOptions: { // optional
+							                        title:"Show me the fullscreen !",
+							                        titleCancel:"Exit fullscreen mode"
+							                    }
+							                }).addTo(map); 
+
+
+							                map.on('enterFullscreen', function(){
+							                    if(window.console) window.console.log('enterFullscreen');
+							                });
+							                map.on('exitFullscreen', function(){
+							                    if(window.console) window.console.log('exitFullscreen');
+							                });
+
+							        var baseLayers = {
+							            'OpenStreetMap Default': defaultLayer,
+							            'Stamen Watercolor': L.tileLayer.provider('Stamen.Watercolor'),
+							            'OpenStreetMap H.O.T.': L.tileLayer.provider('OpenStreetMap.HOT'),
+							            'Stamen Terrain': L.tileLayer.provider('Stamen.Terrain'),
+							            'Stamen Watercolor': L.tileLayer.provider('Stamen.Watercolor'),
+							            'Esri WorldStreetMap': L.tileLayer.provider('Esri.WorldStreetMap'),
+							            'Esri DeLorme': L.tileLayer.provider('Esri.DeLorme'),
+							            'Geoportail France Orthos': L.tileLayer.provider('GeoportailFrance.orthos'),
+							            'USGS USImagery': L.tileLayer.provider('USGS.USImagery'),
+							            'USGS USImageryTopo': L.tileLayer.provider('USGS.USImageryTopo'),
+							        }; 
+
+							        var overlayLayers = {
+							            'OpenSeaMap': L.tileLayer.provider('OpenSeaMap'),
+							            'OpenWeatherMap Clouds': L.tileLayer.provider('OpenWeatherMap.Clouds'),
+							            'OpenWeatherMap Temperature': L.tileLayer.provider('OpenWeatherMap.Temperature'),
+							        };
+
+
+							        L.control.layers(baseLayers,overlayLayers,{collapsed: false}).addTo(map);
+
+
+							        function resizeLayerControl () {
+							                    var layerControlHeight = document.body.clientHeight - (10 + 50);
+							                    var layerControl = document.getElementsByClassName('leaflet-control-layers-expanded')[0];
+
+							                    layerControl.style.overflowY = 'auto';
+							                    layerControl.style.maxHeight = layerControlHeight + 'px';
+
+							        }
+							        map.on('resize', resizeLayerControl);
+							        resizeLayerControl(); 
+
+							        
+
+							        function getColor(d) {
+							            return d > 400 ? '#006d2c' :
+							                d > 350  ? '#2ca25f' :
+							                d > 300  ? '#66c2a4' :
+							                d > 250  ? '#b2e2e2':
+							                d > 200   ? '#edf8fb' : 
+							                        '#fff';
+							            }
+
+							        function style1(feature) {
+							            return {
+							                weight: 2,
+							                opacity: 1,
+							                color: 'white',
+							                dashArray: '3',
+							                fillOpacity: 0.7,
+							                fillColor: getColor(feature.properties.Producteurs_2008)
+							            };
+							       }
+
+							        function style2(feature) {
+							            return {
+							                weight: 2,
+							                opacity: 1,
+							                color: 'white',
+							                dashArray: '3',
+							                fillOpacity: 0.7,
+							                fillColor: getColor(feature.properties.Producteurs_2009)
+							            };
+							        }
+
+							        function style3(feature) {
+							            return {
+							                weight: 2,
+							                opacity: 1,
+							                color: 'white',
+							                dashArray: '3',
+							                fillOpacity: 0.7,
+							                fillColor: getColor(feature.properties.Producteurs_2010)
+							            };
+							       }
+
+							        function style4(feature) {
+							            return {
+							                weight: 2,
+							                opacity: 1,
+							                color: 'white',
+							                dashArray: '3',
+							                fillOpacity: 0.7,
+							                fillColor: getColor(feature.properties.Producteurs_2011)
+							            };
+							        }
+
+							        function highlightFeature(e) {
+							            var layer = e.target;
+
+							            layer.setStyle({
+							                weight: 5,
+							                color: '#666',
+							                dashArray: '',
+							                fillOpacity: 0.7
+							            });
+							            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+							                layer.bringToFront();
+							            }
+							                info.update(layer.feature.properties);                   
+							        }
+
+							        var geojson1;
+
+							        function resetHighlight1(e) {
+							            geojson1.resetStyle(e.target);
+							            
+							        }
+							        var geojson2;
+
+							        function resetHighlight2(e) {
+							            geojson2.resetStyle(e.target);
+							            
+							        }
+							        var geojson3;
+
+							        function resetHighlight3(e) {
+							            geojson3.resetStyle(e.target);
+							        
+							        }
+							        var geojson4;  
+							        
+							        function resetHighlight4(e) {
+							            geojson4.resetStyle(e.target);
+							            
+							        }
+
+							         function zoomToFeature(e) {
+							            map.fitBounds(e.target.getBounds());
+							        }
+
+							        function onEachFeature1(feature, layer) {
+							            layer.on({
+							                mouseover: highlightFeature,
+							                mouseout: resetHighlight1,
+							                click: zoomToFeature
+							            });
+							        }
+							         function onEachFeature2(feature, layer) {
+							            layer.on({
+							                mouseover: highlightFeature,
+							                mouseout: resetHighlight2,
+							                click: zoomToFeature
+							            });
+							        }
+							        function onEachFeature3(feature, layer) {
+							            layer.on({
+							                mouseover: highlightFeature,
+							                mouseout: resetHighlight3,
+							                click: zoomToFeature
+							            });
+							        }
+							        
+							        function onEachFeature4(feature, layer) {
+							            layer.on({
+							                mouseover: highlightFeature,
+							                mouseout: resetHighlight4,
+							                click: zoomToFeature
+							            });
+							        }
+
+							        var info = L.control();
+
+
+
+
+
+							        info.onAdd = function (map) {
+							            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+							            this.update();
+							            return this._div;
+							        };
+
+							        info.update = function (props) {
+							            this._div.innerHTML = '<h4>Nombre de producteurs</h4>' +  (props ?
+							                'Département : <b>' + props.nom + '</b> <br />Cas confirmés : ' + props.Producteurs_2008 + ' .....</sup>'
+							                : 'Merci de mettre le curseur sur la province');
+							        };
+
+							        info.addTo(map);
+
+							        geojson1 = L.geoJson(bretagne,{
+							            style: style1, 
+							            onEachFeature: onEachFeature1,
+							            time: "Producteurs 2008"
+							        }).addTo(map);
+
+
+
+
+
+							        info.onAdd = function (map) {
+							            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+							            this.update();
+							            return this._div;
+							        };
+
+							        // method that we will use to update the control based on feature properties passed
+							        info.update = function (props) {
+							            this._div.innerHTML = '<h4>Nombre de producteurs</h4>' +  (props ?
+							                'Nombre : <b>' + props.Producteurs_2009 + '</b>'
+							                : 'Merci de mettre le curseur sur la province');
+							        };
+
+							        info.addTo(map);
+
+							        geojson2 = L.geoJson(bretagne,{
+							            style: style2, 
+							            onEachFeature: onEachFeature2,
+							            time: "Producteurs 2009"
+							        }).addTo(map);
+
+
+
+
+
+							        info.onAdd = function (map) {
+							            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+							            this.update();
+							            return this._div;
+							        };
+
+							        // method that we will use to update the control based on feature properties passed
+							        info.update = function (props) {
+							            this._div.innerHTML = '<h4>Nombre de producteurs</h4>' +  (props ?
+							                'Nombre : <b>' + props.Producteurs_2010 + '</b>'
+							                : 'Merci de mettre le curseur sur la province');
+							        };
+
+							        info.addTo(map);
+
+							        geojson3 = L.geoJson(bretagne,{
+							            style: style3, 
+							            onEachFeature: onEachFeature3,
+							            time: "Producteurs 2010"
+							        }).addTo(map);
+
+
+
+
+
+
+							        info.onAdd = function (map) {
+							            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+							            this.update();
+							            return this._div;
+							        };
+
+							        // method that we will use to update the control based on feature properties passed
+							        info.update = function (props) {
+							            this._div.innerHTML = '<h4>Nombre de producteurs</h4>' +  (props ?
+							                'Nombre : <b>' + props.Producteurs_2011 + '</b>'
+							                : 'Merci de mettre le curseur sur la province');
+							        };
+
+							        info.addTo(map);
+
+							        geojson4 = L.geoJson(bretagne,{
+							            style: style4, 
+							            onEachFeature: onEachFeature4,
+							            time: "Producteurs 2011"
+							        }).addTo(map);
+
+							       
+							        layerGroup = L.layerGroup([geojson1, geojson2, geojson3,geojson4]);
+							        var sliderControl = L.control.sliderControl({layer:layerGroup, follow: true});
+							        map.addControl(sliderControl);
+							        sliderControl.startSlider();
+
+							        var polylinemeasurement = L.control.polylineMeasure(map).addTo(map);
+							
+							        var legend = L.control({position: 'bottomright'});
+
+							        legend.onAdd = function (map) {
+							            var div = L.DomUtil.create('div', 'info legend');
+							            var grades = [200, 250, 300, 350, 400];
+							            var labels = [];
+							            var from, to;
+
+							            for (var i = 0; i < grades.length; i++) {
+							                from = grades[i];
+							                to = grades[i + 1];
+							    
+							            labels.push(
+							                '<i style="background:' + getColor(from + 1) + '"></i> ' +
+							                from + (to ? '&ndash;' + to : '+'));
+							            }
+
+							            div.innerHTML = labels.join('<br>');
+							            return div;
+							        };
+
+							        legend.addTo(map);
+
+							    	
+
+
+							    </script> 
+
+							    <br>
+
+							    <h2>Histogramme du nombre de producteurs biologiques</h2>
+							        <canvas id="myChart"></canvas>
+
+							        <script>
+							        var ctx = document.getElementById('myChart').getContext('2d')
+							        var data = {
+							                datasets: [{
+							                    type: 'bar',
+							                    label: 'Côtes-d Armor',
+							                    data: [269, 337, 411, 441],
+							                        backgroundColor: [
+							                            'rgba(255, 99, 132, 0.2)',
+							                            'rgba(255, 99, 132, 0.2)',
+							                            'rgba(255, 99, 132, 0.2)',
+							                            'rgba(255, 99, 132, 0.2)'
+							                        ],
+							                        borderColor: [
+							                            'rgba(255, 99, 132, 0.2)',
+							                            'rgba(255, 99, 132, 0.2)',
+							                            'rgba(255, 99, 132, 0.2)',
+							                            'rgba(255, 99, 132, 0.2)'
+							                        ],
+							                        borderWidth: 1
+							                    
+							                }, {
+							                    type: 'bar',
+							                    label: 'Finistère',
+							                    data: [299, 343, 402, 447],
+							                      backgroundColor: [
+							                          'rgba(255, 206, 86, 0.2)',
+							                          'rgba(255, 206, 86, 0.2)',
+							                          'rgba(255, 206, 86, 0.2)',
+							                          'rgba(255, 206, 86, 0.2)'
+							                      ],
+							                      borderColor: [
+							                          'rgba(255, 206, 86, 0.2)',
+							                          'rgba(255, 206, 86, 0.2)',
+							                          'rgba(255, 206, 86, 0.2)',
+							                          'rgba(255, 206, 86, 0.2)'
+							                      ],
+							                      borderWidth: 1
+							                },{
+							                    type: 'bar',
+							                    label: 'Ille-et-Vilaine',
+							                    data: [259, 325, 392, 414],
+							                      backgroundColor: [
+							                          'rgba(54, 162, 235, 0.2)',
+							                          'rgba(54, 162, 235, 0.2)',
+							                          'rgba(54, 162, 235, 0.2)',
+							                          'rgba(54, 162, 235, 0.2)'
+							                      ],
+							                      borderColor: [
+							                          'rgba(54, 162, 235, 0.2)',
+							                          'rgba(54, 162, 235, 0.2)',
+							                          'rgba(54, 162, 235, 0.2)',
+							                          'rgba(54, 162, 235, 0.2)'
+							                      ],
+							                      borderWidth: 1
+							                }, {
+							                    type: 'bar',
+							                    label: 'Morbihan',
+							                    data: [230, 287, 337, 384],
+							                      backgroundColor: [
+							                          'rgba(75, 192, 192, 0.2)',
+							                          'rgba(75, 192, 192, 0.2)',
+							                          'rgba(75, 192, 192, 0.2)',
+							                          'rgba(75, 192, 192, 0.2)'
+							                      ],
+							                      borderColor: [
+							                          'rgba(75, 192, 192, 0.2)',
+							                          'rgba(75, 192, 192, 0.2)',
+							                          'rgba(75, 192, 192, 0.2)',
+							                          'rgba(75, 192, 192, 0.2)'
+							                      ],
+							                      borderWidth: 1
+							                }],
+
+							                labels: ['2008', '2009', '2010', '2011']
+							            }
+
+							            var options = {
+							            }
+
+							            var config = {
+							            type: 'bar',
+							            data: data,
+							            options: options 
+							          }
+
+							            var mixedChart = new Chart(ctx, config)
+							        
+							        </script>
+						</div>
+						
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+							<section>
+								<h2>Follow</h2>
+								<ul class="icons">
+									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+							
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
